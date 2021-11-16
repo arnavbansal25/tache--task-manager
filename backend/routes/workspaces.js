@@ -36,9 +36,10 @@ router.route('/add').post((req, res) => {
 
 // delete workspace along with all its notes
 router.route('/:workspaceName/delete').delete((req, res) => {
-    Note.remove({ workspaceId: ObjectId(req.params.workspacId) })
+    console.log("ooo", req.query.workspaceId);
+    Note.remove({ workspaceId: ObjectId(req.query.workspaceId) })
         .then(() => {
-            Workspace.remove({ _id: ObjectId(req.params.workspaceId) })
+            Workspace.remove({ _id: ObjectId(req.query.workspaceId) })
                 .then(() => res.json('Workspace deleted!'))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
@@ -53,16 +54,15 @@ router.route('/:workspaceName/edit').put((req, res) => {
                 res.json("Workspace already exists!");
             }
             else {
-                const workspaceName = req.body.workspaceName;
-                const workspaceDesc = req.body.workspaceDesc;
+                Workspace.findById(req.query.workspaceId)
+                    .then(workspace => {
+                        workspace.workspaceName = req.body.workspaceName;
+                        workspace.workspaceDesc = req.body.workspaceDesc;
 
-                const newWorkspace = new Workspace({
-                    workspaceName,
-                    workspaceDesc,
-                });
-
-                newWorkspace.save()
-                    .then(() => res.json('Workspace Added!'))
+                        workspace.save()
+                            .then(() => res.json('Workspace Added!'))
+                            .catch(err => res.status(400).json('Error: ' + err));
+                    })
                     .catch(err => res.status(400).json('Error: ' + err));
             }
         });
