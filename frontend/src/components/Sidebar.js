@@ -38,7 +38,7 @@ function Sidebar() {
         }
         axios.post(baseUrl + "workspaces/add", newSpace)
             .then(response => {
-                setNum(num+1);
+                setNum(num + 1);
                 // setWorkspaces((prev) => {
                 //     return [
                 //         ...prev,
@@ -53,7 +53,7 @@ function Sidebar() {
     }
 
     return (
-        <>  
+        <>
             <div className="p-2">
                 {
                     workspaces && workspaces.map((item, index) => (
