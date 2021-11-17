@@ -17,6 +17,7 @@ function App() {
           </div>
           <div className="col-8 col-lg-10 bg-warning">
             <Routes>
+              {/* <Route path="/" exact element={<} */}
               <Route path="workspace/:workspaceName/notes" exact element={<Notes />} />
             </Routes>
           </div>
