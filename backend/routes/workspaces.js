@@ -60,7 +60,7 @@ router.route('/:workspaceName/edit').put((req, res) => {
                         workspace.workspaceDesc = req.body.workspaceDesc;
 
                         workspace.save()
-                            .then(() => res.json('Workspace Added!'))
+                            .then(() => res.json('Workspace Edited!'))
                             .catch(err => res.status(400).json('Error: ' + err));
                     })
                     .catch(err => res.status(400).json('Error: ' + err));
