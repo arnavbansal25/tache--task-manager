@@ -87,6 +87,7 @@ function Workspace(props) {
                 setNum(prev => { return prev + 1 })
                 setEditingSpace(false);
                 closeOptions();
+                navigate("workspaces/");
             })
             .catch(err => {
                 console.log(err);

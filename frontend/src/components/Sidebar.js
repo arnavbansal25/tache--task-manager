@@ -51,7 +51,7 @@ function Sidebar() {
 
     return (
         <>
-            <div className="p-3" style={{ backgroundColor: '#0c1017', maxHeight: '100vh', overflowY: 'scroll' }}>
+            <div className="p-3" style={{ backgroundColor: '#0c1017', height: '100vh', overflowY: 'scroll' }}>
                 {
                     addingSpace ?
                         <div className="d-flex flex-column justify-content-between p-2 mb-3" style={{height: '150px'}}>

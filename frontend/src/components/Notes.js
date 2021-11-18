@@ -38,14 +38,7 @@ function Notes(props) {
 
     return (
         <div className="row p-3 px-5" style={{ float: 'left', maxWidth: '100%' }}>
-            {/* <div className="bg-info" style={{width: '200px', height: '200px'}}> */}
             <AddBoxIcon sx={{ fontSize: 200 }} style={{ cursor: 'pointer', margin: '10px' }} onClick={() => setAddingNote(true)} />
-            {/* </div> */}
-            {
-                notes && notes.map((item, index) => (
-                    <SingleNote note={item} workspace={workspace} setNum={setNum} setAddingNote={setAddingNote} />
-                ))
-            }
             {
                 addingNote ?
                     <SingleNote note={null} workspace={workspace} setNum={setNum} setAddingNote={setAddingNote} />
@@ -53,6 +46,12 @@ function Notes(props) {
                     <>
                     </>
             }
+            {
+                notes && notes.map((item, index) => (
+                    <SingleNote note={item} workspace={workspace} setNum={setNum} setAddingNote={setAddingNote} />
+                ))
+            }
+            
         </div>
     )
 }

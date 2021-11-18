@@ -91,7 +91,7 @@ function SingleNote(props) {
                     placeholder="Note Title"
                     value={noteTitle}
                     onChange={(e) => setNoteTitle(e.target.value)}
-                    style={{ textAlign: 'center', border: 'none', outline: 'none', backgroundColor: 'transparent', color: 'green' }}
+                    style={{ width: '100%', textAlign: 'center', border: 'none', outline: 'none', backgroundColor: 'transparent', color: 'green', fontWeight: 'bold', fontSize: '25px' }}
                     onClick={() => setEditingNote(true)}
                 />
             </div>
