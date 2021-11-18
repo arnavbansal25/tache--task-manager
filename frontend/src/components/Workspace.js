@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -46,6 +46,8 @@ function Workspace(props) {
 
     const workspaceName = React.useRef();
     const workspaceDesc = React.useRef();
+
+    const navigate = useNavigate();
 
     const expandOptions = (event) => {
         setAnchorEl(event.currentTarget);
@@ -103,7 +105,7 @@ function Workspace(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={() => {setEditingSpace(true); closeOptions()}} className="d-flex justify-content-between">
+                <MenuItem onClick={() => { setEditingSpace(true); closeOptions() }} className="d-flex justify-content-between">
                     <div>
                         Edit
                     </div>
@@ -125,10 +127,9 @@ function Workspace(props) {
                     <NavLink
                         to={`/workspace/${item.workspaceName}/notes`}
                         state={{ workspace: item }}
-                        style={{ textDecoration: 'none' }}
+                        style={{textDecoration: 'none'}}
                     >
                         <CustomWidthTooltip title={item.workspaceDesc} followCursor>
-
                             <WorkspaceLink ws={item}>
                                 {item.workspaceName}
                             </WorkspaceLink>
