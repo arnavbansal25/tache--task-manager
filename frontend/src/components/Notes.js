@@ -7,10 +7,7 @@ import { baseUrl } from '../common/baseUrl';
 import SingleNote from './SingleNote';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Workspace from './Workspace';
-
-function Notes(props) {
+function Notes() {
 
     const [notes, setNotes] = React.useState([]);
     const [num, setNum] = React.useState(0);
@@ -20,15 +17,12 @@ function Notes(props) {
     const { workspace } = location.state;
 
     React.useEffect(() => {
-        // console.log("oo", workspace);
-        // console.log("tt", workspace._id, workspace.workspaceName);
         axios.get(baseUrl + `workspace/${workspace.workspaceName}/notes`, {
             params: {
                 workspaceId: workspace._id
             }
         })
             .then(response => {
-                // console.log("eer", response);
                 setNotes(response.data);
             })
             .catch(err => {

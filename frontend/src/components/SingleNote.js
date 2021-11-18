@@ -18,6 +18,7 @@ const Note = styled.div`
     overflow: auto;
     background-color: #171a22;
     margin: 10px;
+    border-radius: 10px;
 `
 
 function SingleNote(props) {

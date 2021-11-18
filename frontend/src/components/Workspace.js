@@ -130,12 +130,12 @@ function Workspace(props) {
                         state={{ workspace: item }}
                         style={{textDecoration: 'none'}}
                     >
-                        <CustomWidthTooltip title={item.workspaceDesc} followCursor>
+                        <CustomWidthTooltip title="Paper Description" followCursor>
                             <WorkspaceLink ws={item}>
                                 {item.workspaceName}
                             </WorkspaceLink>
                         </CustomWidthTooltip>
-                    </NavLink >
+                    </NavLink>
                 </div >
                 <div style={{ width: '10%' }}>
                     <MoreVertIcon onClick={expandOptions} style={{ cursor: 'pointer', color: 'white' }} />
