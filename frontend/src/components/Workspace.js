@@ -1,11 +1,11 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { styled as muiStyled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
+
+import Input from '@mui/material/Input';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -25,7 +25,16 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
     },
 });
 
-
+const WorkspaceLink = styled.div`
+    width: 100%;
+    padding: 10px;
+    // border: '1px solid green';
+    border-radius: 10px;
+    background-color: ${props => `/workspace/${props.ws.workspaceName}/notes` === window.location.pathname ? '#238636' : '#171a22'};
+    // border-left: ${props => `/workspace/${props.ws.workspaceName}/notes` === window.location.pathname ? '10px solid purple' : 'none'};
+    color: white;
+    margin-bottom: 5px;
+`
 
 function Workspace(props) {
 
@@ -37,12 +46,6 @@ function Workspace(props) {
 
     const workspaceName = React.useRef();
     const workspaceDesc = React.useRef();
-
-    const navigate = useNavigate();
-
-    React.useEffect(() => {
-        // console.log("tt", navigate)
-    }, [])
 
     const expandOptions = (event) => {
         setAnchorEl(event.currentTarget);
@@ -57,7 +60,7 @@ function Workspace(props) {
             workspaceName: workspaceName.current.value,
             workspaceDesc: workspaceDesc.current.value
         }
-        axios.put(baseUrl + "workspaces/" + item/workspaceName + "/edit", editedSpace, {
+        axios.put(baseUrl + "workspaces/" + item / workspaceName + "/edit", editedSpace, {
             params: {
                 workspaceId: item._id
             }
@@ -72,7 +75,6 @@ function Workspace(props) {
     }
 
     function deleteWorkspace() {
-        console.log("rrr", item);
         axios.delete(baseUrl + 'workspaces/' + item.workspaceName + '/delete', {
             params: {
                 workspaceId: item._id
@@ -81,6 +83,8 @@ function Workspace(props) {
             .then(response => {
                 closeOptions();
                 setNum(prev => { return prev + 1 })
+                setEditingSpace(false);
+                closeOptions();
             })
             .catch(err => {
                 console.log(err);
@@ -88,14 +92,8 @@ function Workspace(props) {
             })
     }
 
-    const activeTab = (path) => {
-        if (window.location.pathname === path) {
-            return { backgroundColor: 'white', color: "red" };
-        }
-    };
-
     return (
-        <div style={{ border: '2px green solid', backgroundColor: 'pink' }}>
+        <div>
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -105,7 +103,7 @@ function Workspace(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={() => setEditingSpace(true)} className="d-flex justify-content-between">
+                <MenuItem onClick={() => {setEditingSpace(true); closeOptions()}} className="d-flex justify-content-between">
                     <div>
                         Edit
                     </div>
@@ -122,54 +120,53 @@ function Workspace(props) {
                     </div>
                 </MenuItem>
             </Menu>
-            <div className="container">
-                <div className="row">
-                    <div className="col-11 p-1">
+            <div className="d-flex justify-content-between">
+                <div style={{ width: '90%' }}>
+                    <NavLink
+                        to={`/workspace/${item.workspaceName}/notes`}
+                        state={{ workspace: item }}
+                        style={{ textDecoration: 'none' }}
+                    >
                         <CustomWidthTooltip title={item.workspaceDesc} followCursor>
-                            <NavLink
-                                to={`/workspace/${item.workspaceName}/notes`}
-                                state={{ workspace: item }}
-                                style={activeTab(`/workspace/${item.workspaceName}/notes`)}
-                            >
-                                <div style={{
-                                    width: '100%',
-                                    backgroundColor: `/workspace/${item.workspaceName}/notes` === window.location.pathname ? 'white' : 'black'
-                                }}>
-                                    {item.workspaceName}
-                                </div>
-                            </NavLink>
+
+                            <WorkspaceLink ws={item}>
+                                {item.workspaceName}
+                            </WorkspaceLink>
                         </CustomWidthTooltip>
-                    </div>
-                    <div className="col-1 p-1">
-                        <MoreVertIcon onClick={expandOptions} style={{ cursor: 'pointer' }} />
-                    </div>
+                    </NavLink >
+                </div >
+                <div style={{ width: '10%' }}>
+                    <MoreVertIcon onClick={expandOptions} style={{ cursor: 'pointer', color: 'white' }} />
                 </div>
-            </div>
+            </div >
             {
                 editingSpace ?
-                    <div>
-                        <TextField
+                    <div className="d-flex flex-column justify-content-between p-2 mb-3" style={{ height: '150px' }}>
+                        <Input
                             inputRef={workspaceName}
-                            id="workspaceName"
-                            label="New name"
-                            placeholder="eg: Office"
-                            variant="standard"
+                            placeholder="Name"
+                            autoComplete='off'
+                            style={{ color: 'white' }}
+                            focused
+                            defaultValue={item.workspaceName}
                         />
-                        <TextField
+                        <Input
                             inputRef={workspaceDesc}
-                            id="workspaceDesc"
-                            label="New Description"
-                            placeholder="Optional"
-                            variant="standard"
+                            placeholder="Description"
+                            autoComplete='off'
+                            style={{ color: 'white' }}
+                            focused
+                            defaultValue={item.workspaceDesc}
                         />
-                        <div onClick={editWorkspace}>Save</div>
-                        <div onClick={() => setEditingSpace(false)}>Cancel</div>
+                        <div className="d-flex justify-content-evenly">
+                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 2px', color: 'blue' }} onClick={editWorkspace}>Save</div>
+                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 2px', color: 'red' }} onClick={() => setEditingSpace(false)}>Cancel</div>
+                        </div>
                     </div>
                     :
-                    <>
-                    </>
+                    null
             }
-        </div >
+        </div>
     )
 }
 

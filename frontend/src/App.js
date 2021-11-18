@@ -1,7 +1,6 @@
-import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Redirect } from 'react-router-dom';
 
 import Sidebar from './components/Sidebar';
 import Home from './components/Home';
@@ -9,21 +8,18 @@ import Notes from './components/Notes';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <div className="row">
-          <div className="col-4 col-lg-2 bg-primary">
-            <Sidebar />
-          </div>
-          <div className="col-8 col-lg-10 bg-warning">
-            <Routes>
-              {/* <Route path="/" exact element={<} */}
-              <Route path="workspace/:workspaceName/notes" exact element={<Notes />} />
-            </Routes>
-          </div>
+    <BrowserRouter>
+      <div className="d-flex justify-content-between">
+        <div style={{ width: '20%' }}>
+          <Sidebar />
         </div>
-      </BrowserRouter>
-    </div>
+        <div style={{ width: '80%', backgroundColor: '#010409' }}>
+          <Routes>
+            <Route exact path="workspace/:workspaceName/notes" element={<Notes />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

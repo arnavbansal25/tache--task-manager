@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import Input from '@mui/material/Input';
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-
-
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { baseUrl } from '../common/baseUrl';
 
@@ -54,38 +51,43 @@ function Sidebar() {
 
     return (
         <>
-            <div className="p-2">
+            <div className="p-3" style={{ backgroundColor: '#0c1017', maxHeight: '100vh', overflowY: 'scroll' }}>
+                {
+                    addingSpace ?
+                        <div className="d-flex flex-column justify-content-between p-2 mb-3" style={{height: '150px'}}>
+                            <Input
+                                inputRef={workspaceName}
+                                placeholder="Name"
+                                autoComplete='off'
+                                style={{color: 'white'}}
+                                focused
+                            />
+                            <Input
+                                inputRef={workspaceDesc}
+                                placeholder="Description"
+                                autoComplete='off'
+                                style={{color: 'white'}}
+                                focused
+                            />
+                            <div className="d-flex justify-content-evenly">
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 2px', color: 'blue' }} onClick={addNewSpace}>Save</div>
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 2px', color: 'red' }} onClick={() => setAddingSpace(false)}>Cancel</div>
+                            </div>
+                        </div>
+                        :
+                        <div className="d-flex justify-content-center p-2 px-4 mb-3" style={{ cursor: 'pointer', backgroundColor: 'white', borderRadius: '10px' }} onClick={() => setAddingSpace(true)}>
+                            <div className="me-2">
+                                <AddCircleIcon />
+                            </div>
+                            <div>
+                                New
+                            </div>
+                        </div>
+                }
                 {
                     workspaces && workspaces.map((item, index) => (
                         <Workspace item={item} setNum={setNum} />
                     ))
-                }
-                <div style={{ cursor: 'pointer', backgroundColor: 'white' }} onClick={() => setAddingSpace(true)}>
-                    <AddBoxIcon />New Workspace
-                </div>
-                {
-                    addingSpace ?
-                        <div>
-                            <TextField
-                                inputRef={workspaceName}
-                                id="workspaceName"
-                                label="Workspace Name"
-                                placeholder="eg: Office"
-                                variant="standard"
-                            />
-                            <TextField
-                                inputRef={workspaceDesc}
-                                id="workspaceDesc"
-                                label="Workspace Description"
-                                placeholder="Optional"
-                                variant="standard"
-                            />
-                            <div onClick={addNewSpace}>Save</div>
-                            <div onClick={() => setAddingSpace(false)}>Cancel</div>
-                        </div>
-                        :
-                        <>
-                        </>
                 }
             </div>
         </>

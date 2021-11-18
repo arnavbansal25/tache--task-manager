@@ -34,7 +34,7 @@ function Notes(props) {
             .catch(err => {
                 console.log(err);
             })
-    }, [num])
+    }, [num, workspace])
 
     return (
         <div>
