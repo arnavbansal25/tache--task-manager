@@ -6,7 +6,7 @@ let Note = require('../models/note.model');
 
 // get all the workspaces
 router.route('/').get((req, res) => {
-    Workspace.find()
+    Workspace.find().sort({ updatedAt: -1 })
         .then(workspaces => res.json(workspaces))
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -36,7 +36,6 @@ router.route('/add').post((req, res) => {
 
 // delete workspace along with all its notes
 router.route('/:workspaceName/delete').delete((req, res) => {
-    console.log("ooo", req.query.workspaceId);
     Note.remove({ workspaceId: ObjectId(req.query.workspaceId) })
         .then(() => {
             Workspace.remove({ _id: ObjectId(req.query.workspaceId) })
