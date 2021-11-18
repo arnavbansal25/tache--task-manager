@@ -8,15 +8,16 @@ import axios from 'axios';
 import { baseUrl } from '../common/baseUrl';
 
 const Note = styled.div`
-    width: 200px;
+    width: 250px;
     height: 200px;
-    min-width: 100px;
-    min-height: 50px;
-    max-width: 99%;
+    min-width: 200px;
+    min-height: 150px;
+    max-width: 100%;
     max-height: 80vh;
     resize: both;
     overflow: auto;
-    background-color: pink;
+    background-color: #171a22;
+    margin: 10px;
 `
 
 function SingleNote(props) {
@@ -77,52 +78,53 @@ function SingleNote(props) {
                 noteId: note._id
             }
         })
-        .then(response => {
-            setNum(prev => {return prev+1})
-            setEditingNote(false);
-        })
+            .then(response => {
+                setNum(prev => { return prev + 1 })
+                setEditingNote(false);
+            })
     }
 
     return (
-        <>
-            <Note>
-                <div className="d-flex flex-column align-items-center justify-content-center">
-                    <input
-                        placeholder="Note Title"
-                        value={noteTitle}
-                        onChange={(e) => setNoteTitle(e.target.value)}
-                        style={{ textAlign: 'center', border: 'none' }}
-                        onClick={() => setEditingNote(true)}
-                    />
+        <Note>
+            <div className="text-center">
+                <input
+                    placeholder="Note Title"
+                    value={noteTitle}
+                    onChange={(e) => setNoteTitle(e.target.value)}
+                    style={{ textAlign: 'center', border: 'none', outline: 'none', backgroundColor: 'transparent', color: 'green' }}
+                    onClick={() => setEditingNote(true)}
+                />
+            </div>
+            <div>
+                <div className="mb-3">
                     <Input
                         inputRef={noteContent}
                         placeholder="Note Content"
                         multiline
                         defaultValue={note ? note.noteContent : ""}
-                        style={{ width: '100%' }}
+                        style={{ width: '100%', color: 'white' }}
                         onClick={() => setEditingNote(true)}
                     />
-                    {
-                        note ?
-                            editingNote ?
-                                <div className="d-flex justify-content-evenly" style={{ width: '100%' }}>
-                                    <Button variant="contained" color="primary" onClick={editNote}>Save</Button>
-                                    <Button variant="contained" color="error" onClick={deleteNote}>Delete</Button>
-                                    <Button variant="outlined" color="error" onClick={() => setEditingNote(false)}>Cancel</Button>
-                                </div>
-                                :
-                                <>
-                                </>
-                            :
-                            <div className="d-flex justify-content-evenly" style={{ width: '100%' }}>
-                                <Button variant="contained" color="primary" onClick={saveNote}>Save</Button>
-                                <Button variant="outlined" color="error" onClick={() => setAddingNote(false)}>Cancel</Button>
-                            </div>
-                    }
-
                 </div>
-            </Note>
-        </>
+                {
+                    note ?
+                        editingNote ?
+                            <div className="d-flex justify-content-evenly mb-3" style={{ width: '100%' }}>
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 1px', color: 'blue' }} onClick={editNote}>Save</div>
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 1px', color: 'red' }} onClick={deleteNote}>Delete</div>
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 1px', color: 'red' }} onClick={() => setEditingNote(false)}>Cancel</div>
+                            </div>
+                            :
+                            <>
+                            </>
+                        :
+                        <div className="d-flex justify-content-evenly mb-3" style={{ width: '100%' }}>
+                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 1px', color: 'blue' }} onClick={saveNote}>Save</div>
+                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 1px', color: 'red' }} onClick={() => setAddingNote(false)}>Cancel</div>
+                        </div>
+                }
+            </div>
+        </Note>
     )
 }
 

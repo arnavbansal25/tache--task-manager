@@ -160,8 +160,8 @@ function Workspace(props) {
                             defaultValue={item.workspaceDesc}
                         />
                         <div className="d-flex justify-content-evenly">
-                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 2px', color: 'blue' }} onClick={editWorkspace}>Save</div>
-                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 2px', color: 'red' }} onClick={() => setEditingSpace(false)}>Cancel</div>
+                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 1px', color: 'blue' }} onClick={editWorkspace}>Save</div>
+                            <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 1px', color: 'red' }} onClick={() => setEditingSpace(false)}>Cancel</div>
                         </div>
                     </div>
                     :

@@ -70,8 +70,8 @@ function Sidebar() {
                                 focused
                             />
                             <div className="d-flex justify-content-evenly">
-                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 2px', color: 'blue' }} onClick={addNewSpace}>Save</div>
-                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 2px', color: 'red' }} onClick={() => setAddingSpace(false)}>Cancel</div>
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'blue solid 1px', color: 'blue' }} onClick={addNewSpace}>Save</div>
+                                <div className="p-2" style={{ cursor: 'pointer', borderRadius: '5px', outline: 'red solid 1px', color: 'red' }} onClick={() => setAddingSpace(false)}>Cancel</div>
                             </div>
                         </div>
                         :

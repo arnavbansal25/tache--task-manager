@@ -10,10 +10,10 @@ function App() {
   return (
     <BrowserRouter>
       <div className="d-flex justify-content-between">
-        <div style={{ width: '20%' }}>
+        <div style={{ width: '20%', position: 'fixed' }}>
           <Sidebar />
         </div>
-        <div style={{ width: '80%', backgroundColor: '#010409' }}>
+        <div style={{ width: '80%', marginLeft: '20%', backgroundColor: '#010409' }}>
           <Routes>
             <Route exact path="workspace/:workspaceName/notes" element={<Notes />} />
           </Routes>
