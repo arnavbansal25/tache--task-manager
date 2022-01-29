@@ -18,9 +18,11 @@ connection.once('open', () => {
     console.log("Mongoose database connection successful!");
 })
 
+const indexRouter = require('./routes/index');
 const workspaceRouter = require('./routes/workspaces');
 const noteRouter = require('./routes/notes');
 
+app.use('/', indexRouter);
 app.use('/workspaces', workspaceRouter);
 app.use('/workspace', noteRouter);
 
