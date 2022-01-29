@@ -80,7 +80,7 @@ function Sidebar() {
                                 <AddCircleIcon />
                             </div>
                             <div>
-                                New
+                                New Note
                             </div>
                         </div>
                 }
